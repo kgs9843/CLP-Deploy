@@ -20,6 +20,7 @@ import { getDistance } from "../utils/getDistance";
 import SelectedLocationCard from "../components/SelectedLocationCard";
 import Back3DIcon from "../assets/icons/Back_3D_btn.svg";
 import PointButton from "../components/PointButton";
+import StampCard from "../components/StampCard";
 
 //맛집리스트 오브젝트를 받기 위한 콘솔로그용
 //import Test from "../components/test";
@@ -269,7 +270,7 @@ const Main = () => {
           </div>
         </div>
         <DragModal
-          minHeight={125}
+          minHeight={130}
           maxHeight={600}
           height={initialHeight}
           setHeight={setInitialHeight}
@@ -304,6 +305,12 @@ const Main = () => {
                   </div>
                 </div>
               )}
+              {selectedSearchStoreIdx !== null ? (
+                <>
+                  <StampCard selectedStoreIdx={selectedSearchStoreIdx} />
+                  <div className="mt-3 w-full h-30" />
+                </>
+              ) : null}
             </>
           ) : (
             <>

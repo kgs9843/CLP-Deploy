@@ -13,7 +13,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/main" element={<Main />} />
         <Route path="/reward" element={<Reward />} />
-        <Route path="/foodProcess" element={<FoodProcess />} />
+        <Route path="/certify" element={<FoodProcess />} />
         <Route path="/mypage" element={<MyPage />} />
       </Routes>
       <BottomNav />

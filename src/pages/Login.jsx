@@ -3,6 +3,7 @@ import KakaoIcon from "../assets/kakaoIcon.svg";
 import { useNavigate } from "react-router-dom";
 import bgVideo from "../assets/bg-video.mp4";
 import { useNavStore } from "../stores/navStore";
+import LogoSVG from "../assets/Logo.svg";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -11,8 +12,8 @@ const Login = () => {
   const showNav = useNavStore((state) => state.showNav);
 
   useEffect(() => {
-    hideNav();            // 진입시 네비 숨김
-    return showNav;       // 언마운트(나갈 때) 복구
+    hideNav(); // 진입시 네비 숨김
+    return showNav; // 언마운트(나갈 때) 복구
   }, []);
 
   const loginBtnClicked = () => {
@@ -32,16 +33,12 @@ const Login = () => {
       <div className="absolute top-0 left-0 w-full h-full bg-black opacity-40"></div>
       <div className="relative z-10 h-full w-full flex flex-col p-5 justify-between items-center text-white">
         <div className="w-auto flex flex-col justify-center mt-20">
-          <span className="text-sm font-semibold mb-2">
-            환경을 위한 작은 실천 시작하기
+          <span className="text-sm mb- font-thin">
+            <span className="font-bold">환경과 소상공인</span>을 위한 작은 실천
+            시작하기
           </span>
           <div className="w-full h-auto flex flex-row justify-start items-center">
-            <div
-              className="text-5xl font-bold"
-              style={{ fontFamily: "'Roboto Mono" }}
-            >
-              CLEAR PLATE
-            </div>
+            <img src={LogoSVG} alt="LOGO" />
           </div>
         </div>
         <div
