@@ -1,0 +1,30 @@
+/* 전역적으로 지정할 tailwind 속성값들 입니다! */
+
+@import "tailwindcss";
+@import "./custom.css";
+
+/* 글로벌 변수 지정 style={{--font-display}}로 불러오기 가능*/
+@theme {
+  --font-display: "SUIT", "sans-serif";
+  --container-width-sm: 500px; /* iPhone 13 Pro CSS 해상도 기준 */
+  --container-height: 844px;
+}
+
+/* 전역 컨테이너 기본 스타일 */
+:root {
+  max-width: var(--container-width-sm);
+  margin: auto auto; /* 가운데 정렬 */
+  min-width: 300px;
+  width: 100%; /* 화면이 더 작으면 100%로 */
+  height: 100vh;
+}
+
+html,
+body {
+  min-height: 100vh; /* 브라우저 뷰포트 높이 기준 */
+}
+
+body {
+  font-family: "SUIT", "sans-serif";
+  position: relative;
+}

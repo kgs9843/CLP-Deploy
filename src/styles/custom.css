@@ -1,0 +1,35 @@
+/* tailwind 속성을 커스텀할 수 있는 공간입니다 */
+
+.mainColor {
+  background-color: #003d28;
+}
+
+.subColor {
+  background-color: #f7f7f7;
+}
+
+.subColorGreen {
+  background-color: #eaffeb;
+}
+
+.subTextColor {
+  color: #3fd449;
+}
+
+.mainGrayColor {
+  background-color: #c2c2c2;
+}
+
+.textMainColor {
+  color: #003d28;
+}
+.textGrayColor {
+  color: #c2c2c2;
+}
+.textGraySubColor {
+  color: #afafaf;
+}
+
+.textGraySubColor2 {
+  color: #9a9a9a;
+}
