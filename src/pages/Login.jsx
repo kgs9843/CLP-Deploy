@@ -42,7 +42,7 @@ const Login = () => {
           </div>
         </div>
         <div
-          className="w-full left-0 h-10 mb-4 rounded-3xl flex flex-row justify-center items-center cursor-pointer"
+          className="w-full left-0 h-10 mb-8 rounded-3xl flex flex-row justify-center items-center cursor-pointer"
           style={{ backgroundColor: "#F8DF02" }}
           onClick={loginBtnClicked}
         >
