@@ -54,6 +54,7 @@ const KakaoMap = ({ lat = 37.4024068885376, lng = 127.101100614 }) => {
           }}
         />
       )}
+      <MapMarker position={{ lat: lat, lng: lng }} />
     </Map>
   );
 };
