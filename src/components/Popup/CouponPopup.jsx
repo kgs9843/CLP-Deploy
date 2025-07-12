@@ -8,44 +8,51 @@ import CouponClickPopup from "./CouponClickPopup";
 import { fetchCoupon } from "../../api/fetchCoupon";
 const dummyCoupons = [
   {
+    id: 0,
+    imageUrl: null,
+    title: "구름 식당 할인 쿠폰 3000원",
+    deadline: "2025-07-20",
+    isAvailable: true,
+  },
+  {
     id: 1,
     imageUrl: null,
-    title: "버거 할인 쿠폰",
+    title: "버거 할인 쿠폰 1000원",
     deadline: "2025-07-20",
     isAvailable: true,
   },
   {
     id: 2,
     imageUrl: null,
-    title: "피자 할인 쿠폰",
+    title: "피자 할인 쿠폰 1500원",
     deadline: "2025-07-25",
     isAvailable: true,
   },
   {
     id: 3,
     imageUrl: null,
-    title: "카페 음료 1+1 쿠폰",
+    title: "카페 음료 1+1 쿠폰 1500원",
     deadline: "2025-07-12",
     isAvailable: false,
   },
   {
     id: 4,
     imageUrl: null,
-    title: "치킨 반값 쿠폰",
+    title: "치킨 반값 쿠폰 1500원",
     deadline: "2025-07-10",
     isAvailable: false,
   },
   {
     id: 5,
     imageUrl: null,
-    title: "샐러드 무료 쿠폰",
+    title: "샐러드 무료 쿠폰 1000원",
     deadline: "2025-08-01",
     isAvailable: true,
   },
   {
     id: 6,
     imageUrl: null,
-    title: "아이스크림 1+1 쿠폰",
+    title: "아이스크림 1+1 쿠폰 1000원",
     deadline: "2025-07-15",
     isAvailable: false,
   },
@@ -135,7 +142,7 @@ const CouponPopup = ({ onClose }) => {
           사용 가능한
           <br />
           할인권이
-          <span className="subTextColor"> {dummyCoupons.length}개 </span>
+          <span className="subTextColor"> 4개 </span>
           남아있어요.
         </div>
       </div>
