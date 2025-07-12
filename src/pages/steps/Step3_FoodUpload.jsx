@@ -1,18 +1,20 @@
-export default function Step3_FoodUpload({ onNext, onPrev }) {
+import React from "react";
+import StepUploadImage from "../../components/StepUploadImage";
+// import { useNavigate } from "react-router-dom";
+
+export default function Step3_FoodUpload({ onNext, onPrev, onHome }) {
+  // 실제 사용 시 onNext/onPrev/onHome props로 라우팅 또는 이동 함수 넘겨줄 것
   return (
-    <div className="p-6 flex flex-col h-[630px]">
-      <button className="mb-2 text-gray-500" onClick={onPrev}>&larr; 뒤로</button>
-      <div className="grow flex flex-col justify-center items-center">
-        <div className="font-bold text-lg mb-2">음식을 업로드해주세요.</div>
-        <div className="w-40 h-40 flex flex-col items-center justify-center bg-gray-100 border-2 border-dashed border-gray-400 rounded-xl mb-4">
-          <span className="text-gray-400 text-5xl mb-2">&#8682;</span>
-          <div className="text-gray-500 text-sm">이미지 업로드</div>
-        </div>
-      </div>
-      <div className="flex gap-2 mt-auto">
-        <button className="w-1/2 h-12 rounded-lg bg-gray-300 text-gray-800 font-bold" onClick={onPrev}>취소</button>
-        <button className="w-1/2 h-12 rounded-lg bg-green-700 text-white font-bold" onClick={() => onNext("food.jpg")}>다음</button>
-      </div>
-    </div>
+    <StepUploadImage
+      title="음식을 업로드해주세요."
+      guide={"주문한 음식을 업로드해주세요.\n사진을 기반으로 AI 분석이 이루어집니다."}
+      step={2}
+      totalStep={4}
+      uploadGuide="업로드"
+      circle={true} // 원형 미리보기
+      onPrev={onPrev}
+      onNext={onNext}
+      onHome={onHome}
+    />
   );
 }

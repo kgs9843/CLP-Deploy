@@ -2,7 +2,7 @@ import { useState } from "react";
 import Step1_QR from "./steps/Step1_QR";
 import Step2_Map from "./steps/Step2_Map";
 import Step3_FoodUpload from "./steps/Step3_FoodUpload";
-import Step4_BowlUpload from "./steps/Step4_BowlUpload";
+import Step4_PlateUpload from "./steps/Step4_PlateUpload";
 import Step5_Analyze from "./steps/Step5_Analyze";
 import Step6_Result from "./steps/Step6_Result";
 
@@ -57,8 +57,8 @@ export default function FoodProcess() {
         />
       )}
       {step === 4 && (
-        <Step4_BowlUpload
-          onNext={(photo) => {
+        <Step4_PlateUpload
+          onNext={photo => {
             setBowlPhoto(photo);
             setStep(5);
           }}
