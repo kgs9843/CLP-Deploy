@@ -30,5 +30,11 @@ const dummyStores = [
     stampCount: 5,
     lastStampedAt: "2025-07-06 09:10",
   },
+  {
+    id: "16",
+    name: "구름식당",
+    stampCount: 1,
+    lastStampedAt: "2025-07-06 09:10",
+  },
 ];
 export default dummyStores;

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Back3DBtnIcon from "../../assets/icons/Back_3D_btn.svg";
 import { useNavStore } from "../../stores/navStore";
+import { useUserStore } from "../../stores/userStore";
 import { getDDay } from "../../utils/getDay";
 import CouponMenuItem from "../CouponMenuItem";
 import CouponClickPopup from "./CouponClickPopup";
+import { fetchCoupon } from "../../api/fetchCoupon";
 const dummyCoupons = [
   {
     id: 1,
@@ -52,10 +54,30 @@ const CouponPopup = ({ onClose }) => {
   // 네비바 주스탠드로 상태 관리
   const hideNav = useNavStore((state) => state.hideNav);
   const showNav = useNavStore((state) => state.showNav);
+  const userId = useUserStore((state) => state.id);
   const [activeTab, setActiveTab] = useState("사용 가능");
   const [selectedCoupon, setSelectedCoupon] = useState(null); // 추가
-
+  const [coupons, setCoupons] = useState("");
   useEffect(() => {
+    (async () => {
+      try {
+        const result = await fetchCoupon(userId);
+        const today = new Date();
+
+        const processedCoupons = result.map((coupon) => {
+          const expiresAt = new Date(coupon.expiresAt);
+          return {
+            ...coupon,
+            isAvailable: expiresAt > today,
+          };
+        });
+
+        console.log(processedCoupons);
+        setCoupons(processedCoupons);
+      } catch (error) {
+        console.error("API 호출 실패:", error);
+      }
+    })();
     hideNav(); // 진입시 네비 숨김
     return showNav; // 언마운트(나갈 때) 복구
   }, []);
@@ -122,7 +144,9 @@ const CouponPopup = ({ onClose }) => {
         {filteredCoupons.map((coupon) => (
           <CouponMenuItem
             key={coupon.id}
-            imageUrl={coupon.imageUrl}
+            imageUrl={
+              "https://cdn.pixabay.com/photo/2017/06/23/16/20/coupon-2435163_640.png"
+            }
             title={coupon.title}
             date={getDDay(coupon.deadline)}
             isAvailable={coupon.isAvailable}

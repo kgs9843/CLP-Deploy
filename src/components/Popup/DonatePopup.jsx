@@ -5,7 +5,7 @@ import PigPNG from "../../assets/pig.png";
 import DonateLogItem from "../DonateLoItem";
 import DonateDecidePopup from "./DonateDecidePopup";
 import { useNavStore } from "../../stores/navStore";
-const DonatePopup = ({ onClose, point, donateLogs }) => {
+const DonatePopup = ({ onClose, point, donateLogs, setPoint }) => {
   const [donateDecidePopup, setDonateDecidePopup] = useState(false);
   // 네비바 주스탠드로 상태 관리
   const hideNav = useNavStore((state) => state.hideNav);
@@ -54,7 +54,11 @@ const DonatePopup = ({ onClose, point, donateLogs }) => {
       </div>
 
       {donateDecidePopup && (
-        <DonateDecidePopup onClose={() => setDonateDecidePopup(false)} />
+        <DonateDecidePopup
+          onClose={() => setDonateDecidePopup(false)}
+          point={point}
+          setPoint={setPoint}
+        />
       )}
     </div>
   );

@@ -22,6 +22,7 @@ import PointButton from "../components/PointButton";
 import StampCard from "../components/StampCard";
 import { useNavStore } from "../stores/navStore";
 import { usePlacesStore } from "../stores/placeStore";
+import NotificationPopup from "../components/Popup/NotificationPopup";
 
 //맛집리스트 오브젝트를 받기 위한 콘솔로그용
 //import Test from "../components/test";
@@ -38,6 +39,8 @@ const Main = () => {
   const showNav = useNavStore((state) => state.showNav);
   const { location, error } = useGeoLocation(geolocationOptions);
   const point = useUserStore((state) => state.point);
+  const [notificationPopupVisible, setNotificationPopupVisible] =
+    useState(false);
   const [keyword, setKeyword] = useState("");
   const [filteredPlaces, setFilteredPlaces] = useState([]);
   //검색 필터 장소
@@ -98,8 +101,9 @@ const Main = () => {
 
   useEffect(() => {
     if (selectedLocation && selectedLocation.id) {
+      console.log(selectedLocation.id);
       const foundIdx = dummyStores.findIndex(
-        (store) => store.id === selectedLocation.id
+        (store) => store.id === selectedLocation.id.toString()
       );
       if (foundIdx !== -1) {
         setSelectedSearchStoreIdx(foundIdx);
@@ -175,7 +179,7 @@ const Main = () => {
     setSearching(false);
     setInitialHeight(500);
     const selected = {
-      id: item.id,
+      id: item.restaurantId,
       lat: Number(item.y),
       lng: Number(item.x),
       image: item.imageUrl,
@@ -190,7 +194,7 @@ const Main = () => {
 
   return (
     <div className="  h-screen w-full flex flex-col">
-      <div className="absolute w-26 top-15 left-4 z-2">
+      <div className="absolute w-28 top-15 left-4 z-2">
         <PointButton point={point} />
       </div>
       <button
@@ -199,7 +203,10 @@ const Main = () => {
       >
         <img src={Current} alt="Search" className="w-5 h-5" />
       </button>
-      <button className="absolute w-10 top-15 right-4 z-2 bg-white rounded-4xl h-9 flex flex-row justify-center items-center shadow-md">
+      <button
+        className="absolute w-10 top-15 right-4 z-2 bg-white rounded-4xl h-9 flex flex-row justify-center items-center shadow-md"
+        onClick={() => setNotificationPopupVisible(true)}
+      >
         <img src={Notification} alt="Search" className="w-5 h-5" />
       </button>
 
@@ -422,6 +429,9 @@ const Main = () => {
           )}
         </DragModal>
       </div>
+      {notificationPopupVisible && (
+        <NotificationPopup onClose={() => setNotificationPopupVisible(false)} />
+      )}
     </div>
   );
 };

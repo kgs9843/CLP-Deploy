@@ -1,8 +1,20 @@
 import React from "react";
 import WaringBlockSVG from "../../assets/icons/WarningBlock.svg";
 import XblockSVG from "../../assets/icons/Xblock.svg";
+import { subtractPoint } from "../../api/subtractPoint";
 
-const DonateDecidePopup = ({ onClose }) => {
+const DonateDecidePopup = ({ onClose, point, setPoint }) => {
+  const handleClick = async () => {
+    try {
+      // point 값을 넘겨서 API 호출
+      await subtractPoint(20);
+      setPoint(point - 20);
+      console.log("포인트 차감 성공!");
+      // 필요하다면 사용자 알림이나 UI 업데이트 로직 추가
+    } catch (error) {
+      console.error("포인트 차감 실패:", error);
+    }
+  };
   return (
     <div className="fixed inset-0 bg-black/40 gap-2 flex flex-col justify-center items-center z-50 p-4">
       <div className=" flex w-full justify-end">
@@ -24,7 +36,10 @@ const DonateDecidePopup = ({ onClose }) => {
           >
             취소
           </button>
-          <button className="mainColor text-white rounded-full px-4 py-2  flex-1/2">
+          <button
+            className="mainColor text-white rounded-full px-4 py-2  flex-1/2"
+            onClick={handleClick}
+          >
             기부
           </button>
         </div>

@@ -6,7 +6,7 @@ import CurrentPinSvg from "../assets/icons/CurrentPin.svg";
 
 const KakaoMap = ({ lat = 37.4024068885376, lng = 127.101100614 }) => {
   const [state, setState] = useState({
-    center: { lat: lat - 0.0007, lng },
+    center: { lat: lat - 0.0009, lng },
     isPanto: true,
   });
 
@@ -17,7 +17,7 @@ const KakaoMap = ({ lat = 37.4024068885376, lng = 127.101100614 }) => {
     if (lat && lng) {
       setState((prev) => ({
         ...prev,
-        center: { lat: lat - 0.0007, lng },
+        center: { lat: lat - 0.0009, lng },
       }));
     }
   }, [lat, lng]);
@@ -33,7 +33,7 @@ const KakaoMap = ({ lat = 37.4024068885376, lng = 127.101100614 }) => {
     } else if (lat && lng) {
       setState((prev) => ({
         ...prev,
-        center: { lat: lat - 0.0007, lng },
+        center: { lat: lat - 0.0009, lng },
       }));
     }
   }, [selectedLocation, lat, lng]);
@@ -59,7 +59,7 @@ const KakaoMap = ({ lat = 37.4024068885376, lng = 127.101100614 }) => {
         position={{ lat: lat, lng: lng }}
         image={{
           src: CurrentPinSvg, // public 폴더 기준 경로
-          size: { width: 40, height: 40 },
+          size: { width: 55, height: 55 },
           options: { offset: { x: 20, y: 40 } },
         }}
       />

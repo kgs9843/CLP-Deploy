@@ -14,9 +14,13 @@ const CouponMenuItem = ({
       onClick={isAvailable ? onClick : null}
     >
       <div className="flex flex-row justify-center gap-4">
-        <div className="bg-amber-200 w-15 h-15 rounded-xl flex justify-center items-center">
+        <div className="bg-white w-15 h-15 rounded-xl flex justify-center items-center">
           {imageUrl ? (
-            <img src={imageUrl} alt="쿠폰 이미지" className="w-6 h-6" />
+            <img
+              src={imageUrl}
+              alt="쿠폰 이미지"
+              className="w-full h-full object-cover rounded-xl"
+            />
           ) : (
             <div className="text-xs text-white">No Img</div>
           )}

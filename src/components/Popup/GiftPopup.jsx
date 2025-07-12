@@ -4,7 +4,7 @@ import PointButton from "../PointButton";
 import GoodsCard from "../GoodsCard";
 import GoodsCardImg from "../../assets/goods_card.png";
 import { useNavStore } from "../../stores/navStore";
-const GiftPopup = ({ onClose, point }) => {
+const GiftPopup = ({ onClose, point, setPoint }) => {
   // 네비바 주스탠드로 상태 관리
   const hideNav = useNavStore((state) => state.hideNav);
   const showNav = useNavStore((state) => state.showNav);
@@ -63,6 +63,8 @@ const GiftPopup = ({ onClose, point }) => {
             title={item.title}
             description={item.description}
             point={item.point}
+            myPoint={point}
+            setPoint={setPoint}
           />
         ))}
       </div>

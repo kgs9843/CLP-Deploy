@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DragModal from "../components/DragModal";
 import MonthSelector from "../components/MonthSelector";
 import dummyReward from "../data/dummyReward";
@@ -7,9 +7,11 @@ import RewardExchangeSection from "../components/RewardExchangeSection";
 import { useUserStore } from "../stores/userStore";
 import DonatePopup from "../components/Popup/DonatePopup";
 import GiftPopup from "../components/Popup/GiftPopup";
+import { fetchPoint } from "../api/fetchPoint";
 
 const Reward = () => {
-  const point = useUserStore((state) => state.point);
+  const globalSetPoint = useUserStore((state) => state.setPoint);
+  const [point, setPoint] = useState(0);
   const donateLogs = [
     { name: "야호", point: 20 },
     { name: "예영", point: 20 },
@@ -32,6 +34,19 @@ const Reward = () => {
   const [session] = useState("하반기");
 
   const menus = ["전체", "적립", "차감"];
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const result = await fetchPoint();
+        console.log(result);
+        globalSetPoint(result);
+        setPoint(result);
+      } catch (error) {
+        console.error("API 호출 실패:", error);
+      }
+    })();
+  }, [point, globalSetPoint]);
 
   // 날짜 상태
   const today = new Date();
@@ -195,12 +210,17 @@ const Reward = () => {
           onClose={() => setOnClickDonateBtn(false)}
           point={point}
           donateLogs={donateLogs}
+          setPoint={setPoint}
         />
       )}
 
       {/* 굿즈 팝업 */}
       {onClickGiftBtn && (
-        <GiftPopup onClose={() => setOnClickGiftBtn(false)} point={point} />
+        <GiftPopup
+          onClose={() => setOnClickGiftBtn(false)}
+          point={point}
+          setPoint={setPoint}
+        />
       )}
     </>
   );

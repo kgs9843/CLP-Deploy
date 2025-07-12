@@ -1,8 +1,28 @@
 import React from "react";
-
-const GoodsCard = ({ imageSrc, title, description, point }) => {
+import { subtractPoint } from "../api/subtractPoint";
+const GoodsCard = ({
+  imageSrc,
+  title,
+  description,
+  point,
+  myPoint,
+  setPoint,
+}) => {
+  const handleClick = async () => {
+    try {
+      console.log(point);
+      await subtractPoint(point);
+      setPoint(myPoint - point);
+      console.log("포인트 차감 성공!");
+    } catch (error) {
+      console.error("포인트 차감 실패:", error);
+    }
+  };
   return (
-    <div className="flex flex-col items-center justify-between bg-white rounded-xl p-2 w-full max-w-[160px]">
+    <div
+      onClick={handleClick}
+      className="flex flex-col items-center justify-between bg-white rounded-xl p-2 w-full max-w-[160px]"
+    >
       <div className="w-full h-auto rounded-md overflow-hidden flex justify-center items-center">
         <img
           src={imageSrc}
