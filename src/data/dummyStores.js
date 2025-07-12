@@ -23,5 +23,12 @@ const dummyStores = [
     stampCount: 5,
     lastStampedAt: "2025-07-06 09:10",
   },
+
+  {
+    id: "1876658997",
+    name: "제이스팟 알파돔타워",
+    stampCount: 5,
+    lastStampedAt: "2025-07-06 09:10",
+  },
 ];
 export default dummyStores;

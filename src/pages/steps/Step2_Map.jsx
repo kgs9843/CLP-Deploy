@@ -1,31 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import KakaoMap from "../../components/KakaoMap";
 import SelectedLocationCard from "../../components/SelectedLocationCard";
 import StampProgressBar from "../../components/StampProgressBar";
+import dummyPlaces from "../../data/dummyPlaces";
+import dummyStores from "../../data/dummyStores";
+
 export default function Step2_Map({ qrResult, onNext, onPrev }) {
-  const [currentLocation, setCurrentLocation] = useState(location);
-  const [selectedLocation, setSelectedLocation] = useState({
-    id: "1755230985",
-    lat: "126.7387495041629",
-    lng: "37.389536949801084",
-    image: null,
-    category: ["음식점", "카페"],
-    title: "스타벅스 시흥월곶점",
-    subtitle: "언제나 편안한, 우리들의 스타벅스",
-    image_url: null,
-  });
-  //추후에 백엔드랑 매장의 도장 개수 비교 인덱스
+  const [selectedLocation, setSelectedLocation] = useState(null);
   const [selectedSearchStoreIdx, setSelectedSearchStoreIdx] = useState(null);
+
+  // qrResult로 매장/도장 데이터 찾기
+  useEffect(() => {
+    if (qrResult) {
+      // 1. 매장 정보
+      const found = dummyPlaces.find((place) => place.id === qrResult);
+      setSelectedLocation(found || null);
+
+      // 2. 내가 방문한 매장(도장) 인덱스
+      const idx = dummyStores.findIndex((s) => s.id === qrResult);
+      setSelectedSearchStoreIdx(idx !== -1 ? idx : null);
+    }
+  }, [qrResult]);
+
   return (
-    <div className="  h-screen w-full flex flex-col">
+    <div className="h-screen w-full flex flex-col">
       <button className="mb-2 text-gray-500" onClick={onPrev}>
         &larr; 뒤로
       </button>
       <div id="map" className="flex-1">
-        <KakaoMap
-          lat={currentLocation ? currentLocation.latitude : undefined}
-          lng={currentLocation ? currentLocation.longitude : undefined}
-        />
+        {selectedLocation ? (
+          <KakaoMap
+            lat={Number(selectedLocation.y)}
+            lng={Number(selectedLocation.x)}
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-gray-400">
+            매장 정보를 찾을 수 없습니다.
+          </div>
+        )}
       </div>
       <div className="absolute bottom-0 w-full z-10 flex flex-col justify-center items-center gap-3">
         <div
@@ -39,7 +51,11 @@ export default function Step2_Map({ qrResult, onNext, onPrev }) {
                 <SelectedLocationCard selectedLocation={selectedLocation} />
                 <div className="mt-3 w-full textGrayColor text-sm">도장</div>
                 {selectedSearchStoreIdx !== null ? (
-                  <StampProgressBar selectedStoreIdx={selectedSearchStoreIdx} />
+                  <>
+                    <StampProgressBar selectedStoreIdx={selectedSearchStoreIdx} />
+                    {/* 필요하다면 StampCard도 아래처럼 추가 */}
+                    {/* <StampCard selectedStoreIdx={selectedSearchStoreIdx} /> */}
+                  </>
                 ) : (
                   <div className="mt-3 w-full bg-white rounded-2xl shadow-md p-4 flex flex-col gap-1 h-30 justify-center">
                     <div className="w-full textGrayColor text-center text-sm">
@@ -48,11 +64,16 @@ export default function Step2_Map({ qrResult, onNext, onPrev }) {
                   </div>
                 )}
               </>
-            ) : null}
+            ) : (
+              <div className="mt-10 text-center text-gray-400">
+                매장 정보를 찾을 수 없습니다.
+              </div>
+            )}
 
             <button
               className="w-full h-12 rounded-lg mt-auto bg-green-700 text-white font-bold"
               onClick={() => onNext({ name: qrResult, review: "" })}
+              disabled={!selectedLocation}
             >
               다음
             </button>
