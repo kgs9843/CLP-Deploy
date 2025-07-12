@@ -4,7 +4,7 @@
 > 👉 **배포 주소**: (https://www.clearplate.store)
 
 ---
-
+ㅋ
 ## 📌 소개
 
 ClearPlate는 음식점/소상공인의 음식 쿠폰 발급, 기부 내역 관리,  
