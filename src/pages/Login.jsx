@@ -1,25 +1,47 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import KakaoIcon from "../assets/kakaoIcon.svg";
 import { useNavigate } from "react-router-dom";
 import bgVideo from "../assets/bg-video.mp4";
 import { useNavStore } from "../stores/navStore";
 import LogoSVG from "../assets/Logo.svg";
+import { kakaoLogin } from "../api/kakaoLogin";
+import { checkUser } from "../api/checkUser";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useState("");
+  const [loading, setLoading] = useState(false);
+
   // 네비바 주스탠드로 상태 관리
   const hideNav = useNavStore((state) => state.hideNav);
   const showNav = useNavStore((state) => state.showNav);
 
   useEffect(() => {
     hideNav(); // 진입시 네비 숨김
+    (async () => {
+      try {
+        const result = await checkUser();
+        setUserInfo(result);
+        console.log(result);
+      } catch (error) {
+        console.error("API 호출 실패:", error);
+      } finally {
+        setLoading(false);
+      }
+    })();
     return showNav; // 언마운트(나갈 때) 복구
   }, []);
 
   const loginBtnClicked = () => {
-    // 추후 로그인 기능 추가
-    navigate("/main");
+    kakaoLogin();
   };
+
+  if (loading)
+    return (
+      <div className="relative h-screen w-full overflow-hidden">
+        <div>로딩중...</div>
+      </div>
+    );
 
   return (
     <div className="relative h-screen w-full overflow-hidden">
