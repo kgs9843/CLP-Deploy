@@ -22,6 +22,7 @@ const Login = () => {
       try {
         const result = await checkUser();
         setUserInfo(result);
+        navigate("/main");
         console.log(result);
       } catch (error) {
         console.error("API 호출 실패:", error);
