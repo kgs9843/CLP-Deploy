@@ -77,7 +77,8 @@ export default function FoodProcess() {
       )}
       {step === 6 && (
         <Step6_Result
-          analyze={analyze}
+          storeId={qrResult}         // **여기서 QR 결과 넘김**
+          analyze={analyze}          // {percent, isSuccess}
           onRestart={() => {
             setStep(1);
             setQrResult(null);

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import dummyStores from "../data/dummyStores";
 
-const StampProgressBar = ({ selectedStoreIdx }) => {
+const StampProgressBar = ({ selectedStoreIdx, isSuccess }) => {
   const [lastStampedDiffText, setLastStampedDiffText] = useState("");
+
   useEffect(() => {
     if (selectedStoreIdx === null) {
       setLastStampedDiffText("");
@@ -26,6 +27,14 @@ const StampProgressBar = ({ selectedStoreIdx }) => {
     else setLastStampedDiffText(`${diffDays}일 전 완료`);
   }, [selectedStoreIdx]);
 
+  // 기존 도장 개수
+  const baseCount =
+    selectedStoreIdx !== null
+      ? dummyStores[selectedStoreIdx].stampCount ?? 0
+      : 0;
+  // 성공이면 UI상으로만 +1
+  const displayCount = isSuccess ? baseCount + 1 : baseCount;
+
   return (
     <div className="mt-3 w-full bg-white rounded-2xl shadow-md p-4 flex flex-col gap-1 h-30 justify-center">
       <div className="flex flex-row justify-between items-center">
@@ -34,7 +43,7 @@ const StampProgressBar = ({ selectedStoreIdx }) => {
             완식 스템프
           </span>
           <span className="text-black text-sm font-bold">
-            {dummyStores[selectedStoreIdx].stampCount}개
+            {displayCount}개
           </span>
         </div>
         <div className="text-xs mainColor text-white rounded-2xl px-2">
@@ -47,7 +56,7 @@ const StampProgressBar = ({ selectedStoreIdx }) => {
         <div
           className="h-full mainColor rounded-full transition-all duration-500"
           style={{
-            width: `${(dummyStores[selectedStoreIdx].stampCount / 15) * 100}%`,
+            width: `${(displayCount / 15) * 100}%`,
           }}
         ></div>
 

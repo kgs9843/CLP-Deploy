@@ -54,7 +54,7 @@ export default function Step5_Analyze({ bowl, food, onFinish }) {
             완식 여부를 확인중입니다.<br />잠시만 기다려주세요.
           </div>
         </div>
-        <div className="w-72 h-56 relative rounded-xl overflow-hidden shadow">
+        <div className="w-72 h-72 relative rounded-xl overflow-hidden shadow">
           <img src={bowl.url} alt="plate" className="object-cover w-full h-full" />
           {scanning && (
             <div className="absolute inset-0 pointer-events-none">
