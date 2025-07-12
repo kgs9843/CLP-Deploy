@@ -33,7 +33,7 @@ const dummyStores = [
   {
     id: "16",
     name: "구름식당",
-    stampCount: 1,
+    stampCount: 4,
     lastStampedAt: "2025-07-06 09:10",
   },
 ];

@@ -14,6 +14,7 @@ const DonateDecidePopup = ({ onClose, point, setPoint }) => {
     } catch (error) {
       console.error("포인트 차감 실패:", error);
     }
+    onClose();
   };
   return (
     <div className="fixed inset-0 bg-black/40 gap-2 flex flex-col justify-center items-center z-50 p-4">
