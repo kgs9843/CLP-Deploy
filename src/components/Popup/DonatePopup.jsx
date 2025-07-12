@@ -39,7 +39,7 @@ const DonatePopup = ({ onClose, point, donateLogs }) => {
         당신이 남긴 20p가 누군가에게는 따뜻한 위로가 됩니다.
         <br /> 지금까지 모인 포인트, 기부처에 전달됩니다.
       </div>
-      <img src={PigPNG} alt="돼지저금통" className="mt-10 w-80 mx-auto" />
+      <img src={PigPNG} alt="돼지저금통" className="mt-10 w-75 mx-auto" />
       {/* 하단 기부 내역 */}
       <div className="flex flex-col gap-2 justify-center items-center mt-8">
         {donateLogs.map((log, index) => (
@@ -47,7 +47,7 @@ const DonatePopup = ({ onClose, point, donateLogs }) => {
         ))}
       </div>
       <div
-        className="text-sm mt-8 text-white w-full rounded-full mainColor h-8 flex justify-center items-center cursor-pointer"
+        className="text-sm mt-10 text-white w-full rounded-full mainColor h-10 flex justify-center items-center cursor-pointer"
         onClick={() => setDonateDecidePopup(true)}
       >
         20 p 기부하기

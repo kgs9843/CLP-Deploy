@@ -6,12 +6,16 @@ import { useNavStore } from "../stores/navStore";
 import LogoSVG from "../assets/Logo.svg";
 import { kakaoLogin } from "../api/kakaoLogin";
 import { checkUser } from "../api/checkUser";
+import { initializeStores } from "../api/initStoreData";
 import SpinnerIndicator from "../components/SpinnerIndicator";
 import { useUserStore } from "../stores/userStore";
+import { usePlacesStore } from "../stores/placeStore";
 
 const Login = () => {
+  const setPlaces = usePlacesStore((state) => state.setPlaces);
   const navigate = useNavigate();
   const setName = useUserStore((state) => state.setName);
+  const setId = useUserStore((state) => state.setId);
   const setPoint = useUserStore((state) => state.setPoint);
   const [loading, setLoading] = useState(false);
 
@@ -24,8 +28,11 @@ const Login = () => {
     (async () => {
       try {
         const result = await checkUser();
+        const resultPlace = await initializeStores();
+        setPlaces(resultPlace);
         setName(result.nickname);
         setPoint(result.cpPoint);
+        setId(result.id);
         navigate("/main");
       } catch (error) {
         console.error("API 호출 실패:", error);

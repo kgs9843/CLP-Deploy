@@ -17,11 +17,11 @@ const Carousel = ({ items, setHeight }) => {
       id: item.id,
       lat: Number(item.y),
       lng: Number(item.x),
-      image: item.image_url,
+      image: item.imageUrl,
       category: categoryParts,
-      title: item.place_name,
+      title: item.placeName,
       subtitle: item.subtitle,
-      image_url: item.image_url,
+      image_url: item.imageUrl,
     };
     setSelectedLocation(selected);
     console.log("🔍 클릭한 장소:", selected);
@@ -68,7 +68,7 @@ const Carousel = ({ items, setHeight }) => {
     >
       {items.map((item, idx) => {
         const scale = idx === activeIndex ? 1.05 : 0.8;
-        const categoryParts = getCategoryParts(item.category_name);
+        const categoryParts = getCategoryParts(item.clpCategory.category_name);
         return (
           <motion.div
             key={item.id}
@@ -76,7 +76,7 @@ const Carousel = ({ items, setHeight }) => {
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
             className="bg-center bg-cover bg-no-repeat rounded-[20px] shadow-2xs text-xs w-40 h-40 flex-shrink-0"
             style={{
-              backgroundImage: `url(${item.image_url})`,
+              backgroundImage: `url(${item.imageUrl})`,
               backgroundColor: "rgba(0,0,0,0.3)",
               backgroundBlendMode: "darken",
             }}
@@ -102,7 +102,7 @@ const Carousel = ({ items, setHeight }) => {
                   ))}
                 </div>
                 <div className="font-semibold text-lg text-white">
-                  {item.place_name}
+                  {item.placeName}
                 </div>
               </div>
             </div>

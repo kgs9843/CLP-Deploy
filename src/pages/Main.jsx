@@ -7,7 +7,6 @@ import Current from "../assets/icons/Current.svg";
 import { useUserStore } from "../stores/userStore";
 import { useSelectedLocationStore } from "../stores/selectedLocationStore";
 import { useGeoLocation } from "../hooks/useGeoLocation";
-import dummyPlaces from "../data/dummyPlaces";
 import Carousel from "../components/CarouselCard";
 import SpinnerIndicator from "../components/SpinnerIndicator";
 import DropdownButton from "../components/DropDownButton";
@@ -21,6 +20,8 @@ import SelectedLocationCard from "../components/SelectedLocationCard";
 import Back3DIcon from "../assets/icons/Back_3D_btn.svg";
 import PointButton from "../components/PointButton";
 import StampCard from "../components/StampCard";
+import { useNavStore } from "../stores/navStore";
+import { usePlacesStore } from "../stores/placeStore";
 
 //맛집리스트 오브젝트를 받기 위한 콘솔로그용
 //import Test from "../components/test";
@@ -33,6 +34,8 @@ const geolocationOptions = {
 };
 
 const Main = () => {
+  const places = usePlacesStore((state) => state.places);
+  const showNav = useNavStore((state) => state.showNav);
   const { location, error } = useGeoLocation(geolocationOptions);
   const point = useUserStore((state) => state.point);
   const [keyword, setKeyword] = useState("");
@@ -64,6 +67,7 @@ const Main = () => {
   //초기 설정
   useEffect(() => {
     setSelectedLocation(null);
+    showNav();
   }, []);
 
   //맨 처음 위치
@@ -75,7 +79,7 @@ const Main = () => {
   //현재 위치 기준 반경 10km 안에 있는 것들만
   useEffect(() => {
     if (!currentLocation) return;
-    const nearby = dummyPlaces
+    const nearby = places
       .map((place) => {
         const dist = getDistance(
           currentLocation.latitude,
@@ -89,9 +93,8 @@ const Main = () => {
         };
       })
       .filter((place) => place.dist <= 10); // 키워드 조건 제거
-
     setFilteredPlaces(nearby);
-  }, [currentLocation]);
+  }, [currentLocation, places]);
 
   useEffect(() => {
     if (selectedLocation && selectedLocation.id) {
@@ -148,7 +151,7 @@ const Main = () => {
       return;
     }
 
-    const nearby = dummyPlaces
+    const nearby = places
       .map((place) => {
         const dist = getDistance(
           currentLocation.latitude,
@@ -160,8 +163,8 @@ const Main = () => {
       })
       .filter((place) => {
         const matchesKeyword =
-          place.place_name.includes(newKeyword) ||
-          place.road_address_name.includes(newKeyword);
+          place.placeName.includes(newKeyword) ||
+          place.roadAddressName.includes(newKeyword);
         return place.dist <= 10 && matchesKeyword;
       });
     console.log(nearby);
@@ -175,11 +178,11 @@ const Main = () => {
       id: item.id,
       lat: Number(item.y),
       lng: Number(item.x),
-      image: item.image_url,
+      image: item.imageUrl,
       category: categoryParts,
-      title: item.place_name,
+      title: item.placeName,
       subtitle: item.subtitle,
-      image_url: item.img_url,
+      image_url: item.imageUrl,
     };
     setSelectedLocation(selected);
     console.log("🔍 클릭한 장소:", selected);
@@ -320,7 +323,7 @@ const Main = () => {
                     <div className="flex flex-col gap-3 mt-3 w-full mb-30">
                       {searchFilteredPlaces.map((place, idx) => {
                         const categoryParts = getCategoryParts(
-                          place.category_name
+                          place.clpCategory.category_name
                         );
                         return (
                           <div
@@ -330,10 +333,10 @@ const Main = () => {
                           >
                             {/* 이미지 부분 */}
                             <div className="w-20 h-20 bg-gray-200 rounded-xl overflow-hidden flex-shrink-0">
-                              {place.image_url ? (
+                              {place.imageUrl ? (
                                 <img
-                                  src={place.image_url}
-                                  alt={place.place_name}
+                                  src={place.imageUrl}
+                                  alt={place.placeName}
                                   className="w-full h-full object-cover"
                                 />
                               ) : (
@@ -358,7 +361,7 @@ const Main = () => {
                               </div>
 
                               <div className="font-bold text-base">
-                                {place.place_name}
+                                {place.placeName}
                               </div>
                             </div>
                             <img
