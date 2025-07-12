@@ -1,7 +1,7 @@
 # 🥗 ClearPlate
 
 > 환경을 위한 작은 실천, 음식 공유/기부 플랫폼  
-> 👉 **배포 주소**: [https://clearplate.vercel.app](https://clearplate.vercel.app)
+> 👉 **배포 주소**: (https://www.clearplate.store)
 
 ---
 
