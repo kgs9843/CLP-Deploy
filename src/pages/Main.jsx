@@ -210,7 +210,7 @@ const Main = () => {
         <img src={Notification} alt="Search" className="w-5 h-5" />
       </button>
 
-      <span className=" absolute right-0 top-2 w-50 z-2 font-bold text-red-600">
+      {/* <span className=" absolute right-0 top-2 w-50 z-2 font-bold text-red-600">
         {error ? (
           error.includes("User denied") || error.includes("Permission") ? (
             <p>위치 권한을 허용해 주세요!</p>
@@ -222,7 +222,7 @@ const Main = () => {
             {currentLocation.latitude}, {currentLocation.longitude}
           </p>
         ) : null}
-      </span>
+      </span> */}
 
       <div id="map" className="flex-1">
         <KakaoMap
