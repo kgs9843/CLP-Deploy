@@ -21,7 +21,7 @@ const Carousel = ({ items, setHeight }) => {
       category: categoryParts,
       title: item.place_name,
       subtitle: item.subtitle,
-      image_url: item.img_url,
+      image_url: item.image_url,
     };
     setSelectedLocation(selected);
     console.log("🔍 클릭한 장소:", selected);
@@ -74,7 +74,12 @@ const Carousel = ({ items, setHeight }) => {
             key={item.id}
             animate={{ scale }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="bg-amber-400 rounded-[20px] shadow-2xs text-xs w-40 h-40 flex-shrink-0"
+            className="bg-center bg-cover bg-no-repeat rounded-[20px] shadow-2xs text-xs w-40 h-40 flex-shrink-0"
+            style={{
+              backgroundImage: `url(${item.image_url})`,
+              backgroundColor: "rgba(0,0,0,0.3)",
+              backgroundBlendMode: "darken",
+            }}
             onClick={() => clickItem(item, idx, categoryParts)}
           >
             <div className=" h-full w-full p-3 flex flex-col justify-between items-center">
