@@ -5,7 +5,7 @@ import StampProgressBar from "../../components/StampProgressBar";
 import dummyPlaces from "../../data/dummyPlaces";
 import dummyStores from "../../data/dummyStores";
 
-export default function Step2_Map({ qrResult, onNext, onPrev }) {
+export default function Step2_Map({ qrResult, onNext, onPrev, onExit }) {
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [selectedSearchStoreIdx, setSelectedSearchStoreIdx] = useState(null);
 
@@ -22,11 +22,22 @@ export default function Step2_Map({ qrResult, onNext, onPrev }) {
     }
   }, [qrResult]);
 
+  const handleExit = () => {
+    if (onExit) {
+      onExit();
+    }
+  };
+
   return (
-    <div className="h-screen w-full flex flex-col">
-      <button className="mb-2 text-gray-500" onClick={onPrev}>
-        &larr; 뒤로
+    <div className="h-screen w-full flex flex-col relative">
+      {/* 상단 뒤로가기 버튼 */}
+      <button 
+        className="absolute top-4 left-4 z-20 flex items-center justify-center w-12 h-12 transition-transform hover:scale-110"
+        onClick={onPrev}
+      >
+        <img src="src/assets/icons/BackBtn.svg" alt="뒤로가기" width="32" height="32" />
       </button>
+
       <div id="map" className="flex-1">
         {selectedLocation ? (
           <KakaoMap
@@ -39,10 +50,11 @@ export default function Step2_Map({ qrResult, onNext, onPrev }) {
           </div>
         )}
       </div>
+
       <div className="absolute bottom-0 w-full z-10 flex flex-col justify-center items-center gap-3">
         <div
-          className="w-full rounded-t-2xl shadow-lg flex flex-col"
-          style={{ height: `600px`, backgroundColor: "#f7f7f7" }}
+          className="w-full rounded-t-3xl shadow-lg flex flex-col"
+          style={{ height: `520px`, backgroundColor: "#f7f7f7" }}
         >
           <div className="overflow-auto flex-1 px-4">
             {selectedLocation ? (
@@ -53,11 +65,9 @@ export default function Step2_Map({ qrResult, onNext, onPrev }) {
                 {selectedSearchStoreIdx !== null ? (
                   <>
                     <StampProgressBar selectedStoreIdx={selectedSearchStoreIdx} />
-                    {/* 필요하다면 StampCard도 아래처럼 추가 */}
-                    {/* <StampCard selectedStoreIdx={selectedSearchStoreIdx} /> */}
                   </>
                 ) : (
-                  <div className="mt-3 w-full bg-white rounded-2xl shadow-md p-4 flex flex-col gap-1 h-30 justify-center">
+                  <div className="mt-3 w-full bg-white rounded-3xl shadow-md p-4 flex flex-col gap-1 h-30 justify-center">
                     <div className="w-full textGrayColor text-center text-sm">
                       매장을 방문한 적이 없어요!
                     </div>
@@ -69,16 +79,26 @@ export default function Step2_Map({ qrResult, onNext, onPrev }) {
                 매장 정보를 찾을 수 없습니다.
               </div>
             )}
-
-            <button
-              className="w-full h-12 rounded-lg mt-auto bg-green-700 text-white font-bold"
-              onClick={() => onNext({ name: qrResult, review: "" })}
-              disabled={!selectedLocation}
-            >
-              다음
-            </button>
           </div>
         </div>
+      </div>
+
+      {/* 하단 버튼 영역 - 화면 최하단에 고정 */}
+      <div className="absolute bottom-0 left-0 right-0 z-20 p-4 flex gap-3 ">
+        <button
+          onClick={onPrev}
+          className="flex-1 h-14 rounded-full font-bold text-lg transition-all duration-200 bg-white  hover:bg-gray-50"
+        >
+          뒤로가기
+        </button>
+        <button
+          className="flex-1 h-14 rounded-full text-white font-bold text-lg transition-all duration-200 shadow-lg"
+          style={{ backgroundColor: '#003D28' }}
+          onClick={() => onNext({ name: qrResult, review: "" })}
+          disabled={!selectedLocation}
+        >
+          다음
+        </button>
       </div>
     </div>
   );
