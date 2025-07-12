@@ -34,7 +34,6 @@ const geolocationOptions = {
 
 const Main = () => {
   const { location, error } = useGeoLocation(geolocationOptions);
-  // const name = useUserStore((state) => state.name);
   const point = useUserStore((state) => state.point);
   const [keyword, setKeyword] = useState("");
   const [filteredPlaces, setFilteredPlaces] = useState([]);

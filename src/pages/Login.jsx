@@ -6,10 +6,13 @@ import { useNavStore } from "../stores/navStore";
 import LogoSVG from "../assets/Logo.svg";
 import { kakaoLogin } from "../api/kakaoLogin";
 import { checkUser } from "../api/checkUser";
+import SpinnerIndicator from "../components/SpinnerIndicator";
+import { useUserStore } from "../stores/userStore";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState("");
+  const setName = useUserStore((state) => state.setName);
+  const setPoint = useUserStore((state) => state.setPoint);
   const [loading, setLoading] = useState(false);
 
   // 네비바 주스탠드로 상태 관리
@@ -21,9 +24,9 @@ const Login = () => {
     (async () => {
       try {
         const result = await checkUser();
-        setUserInfo(result);
+        setName(result.nickname);
+        setPoint(result.cpPoint);
         navigate("/main");
-        console.log(result);
       } catch (error) {
         console.error("API 호출 실패:", error);
       } finally {
@@ -40,7 +43,7 @@ const Login = () => {
   if (loading)
     return (
       <div className="relative h-screen w-full overflow-hidden">
-        <div>로딩중...</div>
+        <SpinnerIndicator width={12} height={12} />
       </div>
     );
 
