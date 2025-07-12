@@ -2,6 +2,9 @@ import React, { useEffect } from "react";
 import Back3DBtnIcon from "../../assets/icons/Back_3D_btn.svg";
 import PointButton from "../PointButton";
 import GoodsCard from "../GoodsCard";
+import Cup from "../../assets/cup.png";
+import TShirt from "../../assets/tshirt.png";
+import Doll from "../../assets/doll.png";
 import GoodsCardImg from "../../assets/goods_card.png";
 import { useNavStore } from "../../stores/navStore";
 const GiftPopup = ({ onClose, point, setPoint }) => {
@@ -15,19 +18,19 @@ const GiftPopup = ({ onClose, point, setPoint }) => {
   }, []);
   const goodsItems = [
     {
-      imageSrc: GoodsCardImg,
+      imageSrc: TShirt,
       title: "CLP 티셔츠",
       description: "귀여운 CLP 캐릭터가 \n중앙에 위치한 티셔츠",
       point: 2000,
     },
     {
-      imageSrc: GoodsCardImg,
-      title: "CLP 폰케이스",
-      description: "CLP 폰케이스는 \n방어력이 어마무시!",
+      imageSrc: Doll,
+      title: "CLP 키링",
+      description: "지구방위대의 \n방어력이 어마무시!",
       point: 2000,
     },
     {
-      imageSrc: GoodsCardImg,
+      imageSrc: Cup,
       title: "CLP 머그컵",
       description: "CLP 머그컵으로 \n물 마시면서 건강 찾자!",
       point: 2000,
