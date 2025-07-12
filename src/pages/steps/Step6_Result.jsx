@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import BackBtn from "../../assets/icons/BackBtn.svg";
 import SuccessChar from "../../assets/icons/Result_icon/SuccessChar.svg";
@@ -8,12 +8,26 @@ import PointIconLine from "../../assets/icons/Result_icon/PointIcon-line.svg";
 import StampIcon from "../../assets/icons/Result_icon/StampIcon.svg";
 import StampProgressBar from "../../components/StampProgressBar";
 import dummyStores from "../../data/dummyStores";
+import { addPoint } from "../../api/addPoint";
+import { useUserStore } from "../../stores/userStore";
 
 export default function Step6_Result({ storeId, analyze, onRestart }) {
   const isSuccess = analyze?.isSuccess;
   const percent = analyze?.percent;
   const navigate = useNavigate();
+  const setPoint = useUserStore((state) => state.setPoint);
+  const point = useUserStore((state) => state.point);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        await addPoint(20);
+        setPoint(point + 20);
+      } catch (error) {
+        console.error("API 호출 실패:", error);
+      }
+    })();
+  }, []);
   // 도장 데이터: 해당 매장 인덱스
   const selectedStoreIdx = useMemo(() => {
     const idx = dummyStores.findIndex((s) => s.id === storeId);
@@ -24,10 +38,15 @@ export default function Step6_Result({ storeId, analyze, onRestart }) {
     <div className="relative w-full min-h-screen bg-[#F5F5F5] flex flex-col items-center">
       {/* 상단바 */}
       <div className="w-full flex items-center px-6 pt-4 mb-2 relative">
-        <button className="w-9 h-9 flex items-center justify-center" onClick={() => navigate("/main")}>
+        <button
+          className="w-9 h-9 flex items-center justify-center"
+          onClick={() => navigate("/main")}
+        >
           <img src={BackBtn} alt="뒤로" className="w-7 h-7" />
         </button>
-        <span className="flex-1 text-center text-gray-700 font-bold text-lg">식사 인증</span>
+        <span className="flex-1 text-center text-gray-700 font-bold text-lg">
+          식사 인증
+        </span>
         {/* <button
           onClick={onRestart}
           className="w-9 h-9 rounded text-xs font-semibold text-gray-400 border border-gray-200 flex items-center justify-center"
@@ -42,12 +61,20 @@ export default function Step6_Result({ storeId, analyze, onRestart }) {
           {isSuccess ? (
             <>
               <div className="absolute w-32 h-32 bg-gradient-to-br from-yellow-100 via-green-200 to-green-300 rounded-full blur-xl opacity-60 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
-              <img src={SuccessChar} alt="성공" className="w-24 h-24 z-10 relative" />
+              <img
+                src={SuccessChar}
+                alt="성공"
+                className="w-24 h-24 z-10 relative"
+              />
             </>
           ) : (
             <>
               <div className="absolute w-32 h-32 bg-gradient-to-br from-gray-200 via-blue-100 to-blue-300 rounded-full blur-xl opacity-50 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
-              <img src={FailChar} alt="실패" className="w-24 h-24 z-10 relative" />
+              <img
+                src={FailChar}
+                alt="실패"
+                className="w-24 h-24 z-10 relative"
+              />
             </>
           )}
         </div>
@@ -62,7 +89,10 @@ export default function Step6_Result({ storeId, analyze, onRestart }) {
       </div>
 
       {/* 원형 게이지 + 아이콘 */}
-      <div className="relative flex flex-col items-center mt-2 mb-4" style={{ width: 260, height: 260 }}>
+      <div
+        className="relative flex flex-col items-center mt-2 mb-4"
+        style={{ width: 260, height: 260 }}
+      >
         <div className="absolute right-6 top-10 z-20">
           {isSuccess ? (
             <img
@@ -101,7 +131,8 @@ export default function Step6_Result({ storeId, analyze, onRestart }) {
             strokeDashoffset={2 * Math.PI * 105 * (1 - (percent || 0) / 100)}
             strokeLinecap="round"
             style={{
-              transition: "stroke-dashoffset 0.8s ease-out, stroke 0.3s ease-out"
+              transition:
+                "stroke-dashoffset 0.8s ease-out, stroke 0.3s ease-out",
             }}
           />
         </svg>
