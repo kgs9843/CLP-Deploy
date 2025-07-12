@@ -9,7 +9,7 @@ import Step6_Result from "./steps/Step6_Result";
 const TOTAL_STEP = 6;
 
 export default function FoodProcess() {
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(1);
   const [qrResult, setQrResult] = useState(null);
   const [place, setPlace] = useState(null);
   const [foodPhoto, setFoodPhoto] = useState(null);
