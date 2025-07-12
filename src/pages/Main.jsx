@@ -103,7 +103,7 @@ const Main = () => {
     if (selectedLocation && selectedLocation.id) {
       console.log(selectedLocation.id);
       const foundIdx = dummyStores.findIndex(
-        (store) => store.id === selectedLocation.id.toString()
+        (store) => store.id === selectedLocation.id
       );
       if (foundIdx !== -1) {
         setSelectedSearchStoreIdx(foundIdx);
@@ -176,6 +176,7 @@ const Main = () => {
   };
 
   const clickItem = (item, categoryParts) => {
+    console.log(item);
     setSearching(false);
     setInitialHeight(500);
     const selected = {
@@ -188,6 +189,7 @@ const Main = () => {
       subtitle: item.subtitle,
       image_url: item.imageUrl,
     };
+    console.log(selected);
     setSelectedLocation(selected);
     console.log("🔍 클릭한 장소:", selected);
   };

@@ -14,7 +14,7 @@ const Carousel = ({ items, setHeight }) => {
   const clickItem = (item, idx, categoryParts) => {
     setHeight(500);
     const selected = {
-      id: item.id,
+      id: item.restaurantId,
       lat: Number(item.y),
       lng: Number(item.x),
       image: item.imageUrl,
